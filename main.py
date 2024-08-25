@@ -20,7 +20,7 @@ def main():
     Player.containers = (updateable_group, drawable_group)
     Asteroid.containers = (updateable_group, drawable_group, asteroid_group)
     AsteroidField.containers = (updateable_group)
-    Shot.containers = (updateable_group, drawable_group)
+    Shot.containers = (updateable_group, drawable_group, shot_group)
 
     player = Player(PLAYER_START_X, PLAYER_START_Y)
     asteroid_field = AsteroidField()
@@ -43,6 +43,10 @@ def main():
             if asteroid.collide(player):
                 print("Game Over!")
                 return
+            for bullet in shot_group:   
+                if asteroid.collide(bullet):
+                    asteroid.split()
+                    bullet.kill()
 
         for item in drawable_group:
             item.draw(screen)
